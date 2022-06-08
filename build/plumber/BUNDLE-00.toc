@@ -1,0 +1,3 @@
+([('plumber',
+   '/Users/laithalayassa/Desktop/dev/Odyssey-helper/dist/plumber',
+   'EXECUTABLE')],)

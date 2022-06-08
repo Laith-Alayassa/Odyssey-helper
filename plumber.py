@@ -1,6 +1,20 @@
 
 import pdfplumber
 from dateutil.parser import parse
+import os
+import sys
+import glob
+
+def find_latest_file():
+    """finds the last file to be added to a folder (currently downloads folder)
+
+    Returns:
+        string: file path
+    """
+    list_of_files = glob.glob('/Users/laithalayassa/Downloads/*') # * means all if need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime)
+    return latest_file
+
 
 def is_date(string, fuzzy=False):
     """
@@ -16,9 +30,13 @@ def is_date(string, fuzzy=False):
     except ValueError:
         return False
 
+
+
 wrong_inputs = ['Available:','Checked']
 
-with pdfplumber.open('items.pdf') as pdf:
+
+path_to_pdf = find_latest_file()
+with pdfplumber.open(path_to_pdf) as pdf:
     for l,pg in enumerate(pdf.pages):
         page  = pdf.pages[l]
         text = page.extract_text()
@@ -49,3 +67,5 @@ with pdfplumber.open('items.pdf') as pdf:
 
         except:
             pass
+
+
