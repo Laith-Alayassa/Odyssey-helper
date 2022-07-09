@@ -54,7 +54,7 @@ def find_late():
                 # Some names are too long and intersect with the date (eg. Alonso03/04/2002)
                 # So I use the last 10 chars which are the the date
                 date_location = row[-4][-10:]
-                if is_date(date_location) and is_late(date_location, today) and row[0] not in wrong_inputs:
+                if is_date(date_location)  and row[0] not in wrong_inputs:
                     due_date = row[-4]
                     item_borrowed = ""
                     student = ''
@@ -79,5 +79,7 @@ def find_late():
                 pass
 
 find_late()
+
+# TODO: Send emails to late users
 
 
