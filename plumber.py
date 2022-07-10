@@ -4,6 +4,7 @@ from dateutil.parser import parse
 import os
 import sys
 import glob
+from pprint import pprint
 from datetime import date
 
 def find_latest_file():
@@ -33,11 +34,18 @@ def is_date(string, fuzzy=False):
 
 
 def is_late(item_date, today):
+    """
+    returns True of item is late
+
+    item_date (string): date to return item
+    today (string): today's date
+    """
     item_due = parse(item_date)
     return item_due >= today
 
 
 def find_late():
+    late_students = {}
     wrong_inputs = ['Available:', 'Checked']
     today = date.today().strftime("%d/%m/%Y")
     today = parse(today)
@@ -54,32 +62,55 @@ def find_late():
                 # Some names are too long and intersect with the date (eg. Alonso03/04/2002)
                 # So I use the last 10 chars which are the the date
                 date_location = row[-4][-10:]
-                if is_date(date_location)  and row[0] not in wrong_inputs:
+                if is_date(date_location)  and row[0] not in wrong_inputs: #TODO: Add is late
                     due_date = row[-4]
                     item_borrowed = ""
-                    student = ''
+                    student_name = ''
                     # find student id its index in list
                     for element in row:
                         # finds ID based on length and type
                         if len(element) == 9 and element.isnumeric():
                             id_index = row.index(element)
-                            id = element
+                            student_id = element
 
                     # find item name
                     for i in range(0, id_index - 1):
-                        item_borrowed += row[i] + " "
+                        item_borrowed += row[i].replace('Checked', '')
 
                     # finds student name
                     for i in range(id_index + 1, len(row) - 4):
-                        student += row[i]
+                        student_name += row[i]
 
-                    print(f'\n The student: {student}, id num: {id} borrowed {item_borrowed} that is due {due_date}')
+                    print(f'\n The student: {student_name}, id num: {student_id} borrowed {item_borrowed} that is due {due_date}')
                     print('\n')
+                    late_students[student_id] = [item_borrowed, student_name, due_date]
             except:
                 pass
+    return late_students
 
-find_late()
+message = """Hello,
 
-# TODO: Send emails to late users
+You checked out {} on {} and have not yet returned it to the hall office. This item is now overdue.
+
+Please return it to the Dupre Hall Office immediately when the office is open. Hall office hours are listed below. A staff member needs to be present in the office when you turn the items in, otherwise it will be an improper check-in and you can still be charged a fee.
+If the office is closed you can also call the RA on Duty from 7pm-8am, 7 days a week. 
+
+As a reminder, if {} is not returned immediately when the office is open, you will be charged a replacement fee. 
+If you have any further questions or you feel that you have received this email in error please feel free to contact RHD Samantha at syang9@macalester.edu 
+
+Best, 
+Dupre Office"""
+# print(find_late())
+def write_emails(message):
+    late_students = find_late()
+    for student in late_students:
+        message = message.format(late_students[student][0],late_students[student][-1], late_students[student][0])
+        # Adds the email as the last element in dictionary, now it looks like {ID : [ITEM, NAME, Due-Date, Email]}
+        late_students[student] = late_students[student] + [message]
+    return late_students
+
+
+pprint(write_emails(message))
+
 
 
