@@ -1,7 +1,8 @@
 items.pdf
 sandbox.py
 env
-
+keys.json
+spreadsheet.py
 email_info.py
 # Byte-compiled / optimized / DLL files
 __pycache__/

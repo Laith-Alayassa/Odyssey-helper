@@ -1,0 +1,21 @@
+from googleapiclient.discovery import build
+from google.oauth2 import service_account
+from spreadsheet import spreadsheet_id
+
+
+
+SERVICE_ACCOUNT_FILE = 'keys.json'
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+creds = None
+creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+# The ID spreadsheet.
+SPREADSHEET_ID = spreadsheet_id
+service = build( 'sheets', "v4", credentials=creds)
+
+
+# Call the Sheets API
+sheet = service.spreadsheets()
+result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range="Sheet1!A1:G16").execute()
+values = result.get('values', [])
+print(values)
