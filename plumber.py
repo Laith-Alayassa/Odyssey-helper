@@ -81,14 +81,17 @@ def find_late():
                     for i in range(id_index + 1, len(row) - 4):
                         student_name += row[i]
 
-                    print(f'\n The student: {student_name}, id num: {student_id} borrowed {item_borrowed} that is due {due_date}')
-                    print('\n')
+                    # print(f'\n The student: {student_name}, id num: {student_id} borrowed {item_borrowed} that is due {due_date}')
+                    # print('\n')
                     late_students[student_id] = [item_borrowed, student_name, due_date]
             except:
                 pass
     return late_students
 
-message = """Hello,
+
+# print(find_late())
+def write_emails():
+    message = """Hello,
 
 You checked out {} on {} and have not yet returned it to the hall office. This item is now overdue.
 
@@ -100,17 +103,19 @@ If you have any further questions or you feel that you have received this email 
 
 Best, 
 Dupre Office"""
-# print(find_late())
-def write_emails(message):
+    
+    
+    
+    
     late_students = find_late()
     for student in late_students:
         message = message.format(late_students[student][0],late_students[student][-1], late_students[student][0])
-        # Adds the email as the last element in dictionary, now it looks like {ID : [ITEM, NAME, Due-Date, Email]}
+        # Adds the email as the last element in dictionary, now it looks like {ID : [ITEM, NAME, Due-Date, Emailmessage]}
         late_students[student] = late_students[student] + [message]
     return late_students
 
 
-pprint(write_emails(message))
+# pprint(write_emails())
 
 
 
