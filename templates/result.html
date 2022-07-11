@@ -10,7 +10,8 @@
 
     <ul id="navigation">
         {% for email in emails %}
-            <li> {{ email + emails[email][-1] }} </li>
+            <li> {{ email }} </li>
+            <textarea>{{emails[email][-1]}}</textarea>
         {% endfor %}
     </ul>
 </body>

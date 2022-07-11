@@ -1,18 +1,50 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://kit.fontawesome.com/554dc6a5fd.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <h1> Odyssey helper </h1>
 
-    <form action="/results" name="form" method="POST"  enctype="multipart/form-data">
-        <label for="myfile">Select a file:</label>
-        <input type="file" accept="application/pdf" id="file" name="file"/>
-        <input type="submit" value="submit">
+<body>
+    <div class="container">
+
+
+        <h3 class="mt-5 mb-3 d-flex justify-content-center"> Because I respect your time more than you do</h3>
+        <h2 class="mt-5 d-flex justify-content-center">Drop it like it's hot</h2>
+        <form class="mt-5 d-flex justify-content-center" action="/results" id="form" name="form" method="POST" enctype="multipart/form-data">
+            <input type="file" accept="application/pdf" id="fileInput" name="file" />
+            <input type="submit" value="submit" class="primary-btn">
+        </form>
+
+
+    </div>
+
+
+    <script>
+        document.getElementById("fileInput").onchange = function() {
+        document.getElementById("form").submit();
+    };
+    </script>
+    <!-- <script>
+
+        dropContainer = document.getElementById("dropContainer");
+        dropContainer.ondragover = dropContainer.ondragenter = function (evt) {
+            evt.preventDefault();
+        };
+
+        dropContainer.ondrop = function (evt) {
+            // pretty simple -- but not for IE :(
+            fileInput.files = evt.dataTransfer.files;
+            evt.preventDefault();
+        };
         
-    </form>
+    </script> -->
 </body>
+
 </html>
