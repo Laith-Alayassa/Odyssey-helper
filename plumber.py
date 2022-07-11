@@ -7,6 +7,7 @@ import glob
 from pprint import pprint
 from datetime import date
 
+
 def find_latest_file():
     """finds the last file to be added to a folder (currently downloads folder)
 
@@ -44,13 +45,13 @@ def is_late(item_date, today):
     return item_due >= today
 
 
-def find_late():
+def find_late(path_to_pdf = ""):
     late_students = {}
     wrong_inputs = ['Available:', 'Checked']
     today = date.today().strftime("%d/%m/%Y")
     today = parse(today)
 
-    path_to_pdf = find_latest_file()
+    if not path_to_pdf:  path_to_pdf = find_latest_file() 
     with pdfplumber.open(path_to_pdf) as pdf:
         for l, pg in enumerate(pdf.pages):
             page = pdf.pages[l]
@@ -90,7 +91,7 @@ def find_late():
 
 
 # print(find_late())
-def write_emails():
+def write_emails(pdf_file = None):
     message = """Hello,
 
 You checked out {} on {} and have not yet returned it to the hall office. This item is now overdue.
@@ -107,7 +108,7 @@ Dupre Office"""
     
     
     
-    late_students = find_late()
+    late_students = find_late(pdf_file)
     for student in late_students:
         message = message.format(late_students[student][0],late_students[student][-1], late_students[student][0])
         # Adds the email as the last element in dictionary, now it looks like {ID : [ITEM, NAME, Due-Date, Emailmessage]}
@@ -115,7 +116,9 @@ Dupre Office"""
     return late_students
 
 
-# pprint(write_emails())
 
 
 
+if __name__ == '__main__':
+    # This code won't run if this file is imported.
+    write_emails()

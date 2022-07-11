@@ -3,9 +3,9 @@
 
 
 
-
+from plumber import write_emails
 from flask import Flask, render_template, request
-
+import pdfplumber
 
 app = Flask(__name__)
 
@@ -16,7 +16,8 @@ def home():
 @app.route("/results", methods = ["POST"])
 def result():
     pdf_file = request.files["file"]
-    
+    print(write_emails(pdf_file))
+
     return render_template('result.html')
 
 
