@@ -16,9 +16,11 @@ def home():
 @app.route("/results", methods = ["POST"])
 def result():
     pdf_file = request.files["file"]
-    print(write_emails(pdf_file))
-
-    return render_template('result.html')
+    emails = write_emails(pdf_file)
+    # for email in emails:
+    #     #{ID : [ITEM, NAME, Due-Date, Emailmessage]}
+    #     print(email + '-----' + emails[email][-1])
+    return render_template('result.html', emails = emails)
 
 
 if __name__ == '__main__':
