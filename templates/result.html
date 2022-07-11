@@ -12,25 +12,55 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-light bg-light d-flex justify-content-center">
+        <a class="navbar-brand pl-5 mr-auto">
+            <img src="/static/logo.svg" width="50" height="50" class="d-inline-block align-top" alt="">
+          </a>
+        <span class="navbar-brand mb-0 h1 mr-auto">The Sanity Saver</span>
+    </nav>
+    <div class="container mt-5 pt-3 d-flex justify-content-center">
 
-    <div class="container mt-5 d-flex justify-content-center">
-        <div class="student-message">
+        <div>
+            <h1>Here are your results</h1>
+            <h4 class="mt-5">Check out the GitHub Repo:</h4>
+            <a href="https://github.com/Laith-Alayassa/Odyssey-helper.git"> <button class="w-75 m-0 btn_message ml-1">
+                    Repo</button> </a>
+
+            <h5 style="font-size: medium;" class="mt-5">If you want to contribute, <br>
+                please make a pull request!</h5>
+            
+            <h6 class="mt-5" >Made By: <br>
+            Laith Alayassa</h6>
+
+
+        </div>
+        <div class="student-message w-100">
             {% for email in emails %}
             <div class="email-box"></div>
-                <div class="text-area d-flex justify-content-center">
-                    <textarea class="message-text w-75 p-4">{{emails[email][-1]}}</textarea>
-                </div>
-                <span class="d-flex  justify-content-center mt-3">{{ email }}</span>
-                <div class="buttons d-flex  justify-content-center mt-3 mb-5">
-                    <button class="w-25 m-0 btn_email mr-1" id="copy Email"> Copy Email</button>
-                    <button class="w-25 m-0 btn_message ml-1" id="copy Email"> Copy Message</button>
-                </div>
-                {% endfor %}
+            <div class="text-area d-flex justify-content-center">
+                <textarea class="message-text w-75 p-4">{{emails[email][-1]}}</textarea>
             </div>
+            <div class="d-flex justify-content-center mt-3">
+                <textarea id="email" class="email-box w-75 pl-4 pt-1" rows="1">{{ email }}</textarea>
+            </div>
+            <div class="buttons d-flex  justify-content-center mt-3 mb-5">
+                <button class="w-25 m-0 btn_email mr-1" id="copy-email"> Copy Email</button>
+                <button class="w-25 m-0 btn_message ml-1" id="copy-message"> Copy Message</button>
+            </div>
+            {% endfor %}
         </div>
     </div>
+    </div>
     <script>
-        document.querySelector("button").onclick = function () {
+        // copy email (id for now)
+        document.querySelector("#copy-email").onclick = function () {
+            document.querySelector("#email").select();
+            document.execCommand('copy');
+        }
+
+
+        // copy text-area
+        document.querySelector("#copy-message").onclick = function () {
             document.querySelector("textarea").select();
             document.execCommand('copy');
         }
