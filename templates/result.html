@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +8,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="static/style.css">
-    
+
 </head>
+
 <body>
 
-    <div class="container">
-
-        result
-        
-        <ul id="navigation">
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="student-message">
             {% for email in emails %}
-            <p class="email-box mt-5 d-flex justify-content-center">{{ email }}</p>
-            <textarea class="message-text d-flex justify-content-center">{{emails[email][-1]}}</textarea>
-            {% endfor %}
-        </ul>
+            <div class="email-box"></div>
+                <div class="text-area d-flex justify-content-center">
+                    <textarea class="message-text w-75 p-4">{{emails[email][-1]}}</textarea>
+                </div>
+                <span class="d-flex  justify-content-center mt-3">{{ email }}</span>
+                <div class="buttons d-flex  justify-content-center mt-3 mb-5">
+                    <button class="w-25 m-0 btn_email mr-1" id="copy Email"> Copy Email</button>
+                    <button class="w-25 m-0 btn_message ml-1" id="copy Email"> Copy Message</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
+    <script>
+        document.querySelector("button").onclick = function () {
+            document.querySelector("textarea").select();
+            document.execCommand('copy');
+        }
+    </script>
 </body>
+
 </html>

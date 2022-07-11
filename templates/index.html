@@ -27,6 +27,12 @@
 
 
     <script>
+        document.getElementById("fileInput").addEventListener("mouseover", function() {
+            document.getElementById("fileInput").style.backgroundColor = "#8e8e8e";
+    });
+    document.getElementById("fileInput").addEventListener("mouseout", function() {
+            document.getElementById("fileInput").style.backgroundColor = "#eeeeee";
+    });
         document.getElementById("fileInput").onchange = function() {
         document.getElementById("form").submit();
     };
