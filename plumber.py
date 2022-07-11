@@ -92,7 +92,10 @@ def find_late(path_to_pdf = ""):
 
 # print(find_late())
 def write_emails(pdf_file = None):
-    message = """Hello,
+    
+    late_students = find_late(pdf_file)
+    for student in late_students:
+        message = """Hello,
 
 You checked out {} on {} and have not yet returned it to the hall office. This item is now overdue.
 
@@ -105,14 +108,10 @@ If you have any further questions or you feel that you have received this email 
 Best, 
 Dupre Office"""
     
-    
-    
-    
-    late_students = find_late(pdf_file)
-    for student in late_students:
         message = message.format(late_students[student][0],late_students[student][-1], late_students[student][0])
         # Adds the email as the last element in dictionary, now it looks like {ID : [ITEM, NAME, Due-Date, Emailmessage]}
         late_students[student] = late_students[student] + [message]
+        print(student + message)
     return late_students
 
 

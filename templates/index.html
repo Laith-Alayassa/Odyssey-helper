@@ -16,7 +16,7 @@
 
 
         <h3 class="mt-5 mb-3 d-flex justify-content-center"> Because I respect your time more than you do</h3>
-        <h2 class="mt-5 d-flex justify-content-center">Drop it like it's hot</h2>
+        <h2 class="mt-5 d-flex justify-content-center">Drag and Drop the file</h2>
         <form class="mt-5 d-flex justify-content-center" action="/results" id="form" name="form" method="POST" enctype="multipart/form-data">
             <input type="file" accept="application/pdf" id="fileInput" name="file" />
             <input type="submit" value="submit" class="primary-btn">
@@ -31,20 +31,7 @@
         document.getElementById("form").submit();
     };
     </script>
-    <!-- <script>
-
-        dropContainer = document.getElementById("dropContainer");
-        dropContainer.ondragover = dropContainer.ondragenter = function (evt) {
-            evt.preventDefault();
-        };
-
-        dropContainer.ondrop = function (evt) {
-            // pretty simple -- but not for IE :(
-            fileInput.files = evt.dataTransfer.files;
-            evt.preventDefault();
-        };
-        
-    </script> -->
+ 
 </body>
 
 </html>
