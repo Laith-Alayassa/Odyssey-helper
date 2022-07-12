@@ -20,27 +20,45 @@
 
         <h3 class="mt-5 mb-3 d-flex justify-content-center"> Because I respect your time more than you do</h3>
         <h2 class="mt-5 d-flex justify-content-center">Drag and Drop the file</h2>
-        <form class="mt-5 d-flex justify-content-center" action="/results" id="form" name="form" method="POST" enctype="multipart/form-data">
+        <form class="mt-5 d-flex justify-content-center" action="/results" id="form" name="form" method="POST"
+            enctype="multipart/form-data">
             <input type="file" accept="application/pdf" id="fileInput" name="file" />
             <input type="submit" value="submit" class="primary-btn">
         </form>
+        <div class="d-flex justify-content-center">
 
-
+            <div>
+                <div class="col mt-5">
+                    <div class="col">
+                        <a href="https://github.com/Laith-Alayassa/Odyssey-helper.git"> <button
+                            class="w-100 m-0 btn_message ml-1">
+                            GitHub Repo</button> </a>
+                        </div>
+                        <div class="col">
+                            <h5 style="font-size: medium;" class="mt-3">If you want to contribute, <br>
+                                please make a pull request! </h5> 
+                                <h4 class="mt-5" >Made By: Laith Alayassa</h4>
+                                
+                            </div>
+                </div>
+                
+            </div>
+        </div>
     </div>
 
 
     <script>
-        document.getElementById("fileInput").addEventListener("mouseover", function() {
+        document.getElementById("fileInput").addEventListener("mouseover", function () {
             document.getElementById("fileInput").style.backgroundColor = "#8e8e8e";
-    });
-    document.getElementById("fileInput").addEventListener("mouseout", function() {
+        });
+        document.getElementById("fileInput").addEventListener("mouseout", function () {
             document.getElementById("fileInput").style.backgroundColor = "#eeeeee";
-    });
-        document.getElementById("fileInput").onchange = function() {
-        document.getElementById("form").submit();
-    };
+        });
+        document.getElementById("fileInput").onchange = function () {
+            document.getElementById("form").submit();
+        };
     </script>
- 
+
 </body>
 
 </html>

@@ -22,22 +22,27 @@
     <div class="container mt-5 pt-3 d-flex justify-content-center">
 
         <div>
-            <h1>Here are your results</h1>
-            <h4 class="mt-5">Check out the GitHub Repo:</h4>
-            <a href="https://github.com/Laith-Alayassa/Odyssey-helper.git"> <button class="w-75 m-0 btn_message ml-1">
-                    Repo</button> </a>
+            <div class="left">
 
-            <h5 style="font-size: medium;" class="mt-5">If you want to contribute, <br>
-                please make a pull request!</h5>
+                <h1>Here are your results</h1>
+                <h4 class="mt-5">Check out the GitHub Repo:</h4>
+                <a href="https://github.com/Laith-Alayassa/Odyssey-helper.git"> <button
+                        class="w-75 m-0 btn_message ml-1">
+                        Repo</button> </a>
 
-            <h6 class="mt-5">Made By: <br>
-                Laith Alayassa</h6>
+                <h5 style="font-size: medium;" class="mt-5">If you want to contribute, <br>
+                    please make a pull request!</h5>
+
+                <h6 class="mt-5">Made By: <br>
+                    Laith Alayassa</h6>
+            </div>
 
 
         </div>
         <div class="student-message w-100">
             {% for email in emails %}
             <h1 class="pl-5">{{ loop.index }}</h1>
+
             <div class="email-box"></div>
             <div class="text-area d-flex justify-content-center">
                 <textarea class="message-text w-75 p-4" id="message-area"
