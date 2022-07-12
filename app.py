@@ -17,9 +17,6 @@ def home():
 def result():
     pdf_file = request.files["file"]
     emails = write_emails(pdf_file)
-    # for email in emails:
-    #     #{ID : [ITEM, NAME, Due-Date, Emailmessage]}
-    #     print(email + '-----' + emails[email][-1])
     return render_template('result.html', emails = emails)
 
 

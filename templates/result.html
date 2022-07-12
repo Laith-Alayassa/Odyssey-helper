@@ -14,10 +14,7 @@
 
 <body>
     <nav class="navbar navbar-light bg-light d-flex justify-content-center">
-        <a class="navbar-brand pl-5 mr-auto">
-            <img src="/static/logo.svg" width="50" height="50" class="d-inline-block align-top" alt="">
-        </a>
-        <span class="navbar-brand mb-0 h1 mr-auto">The Sanity Saver</span>
+        <span class="navbar-brand mb-0 h1">The Sanity Saver</span>
     </nav>
     <div class="container mt-5 pt-3 d-flex justify-content-center">
 
@@ -50,7 +47,7 @@
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <textarea id="email" class="email-box w-75 pl-4 pt-1" rows="1"
-                    data-index="{{loop.index}}">{{ email }}</textarea>
+                    data-index="{{loop.index}}">{{ emails[email][-2] }}</textarea>
             </div>
             <div class="buttons d-flex  justify-content-center mt-3 mb-5">
                 <button class="w-25 m-0 btn_email mr-1" id="copy-email" data-index="{{loop.index}}"> Copy Email</button>

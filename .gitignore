@@ -9,9 +9,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.vscode
+
 # C extensions
 *.so
-
+.DS_Store
+~$students.xlsx
 # Distribution / packaging
 .Python
 build/

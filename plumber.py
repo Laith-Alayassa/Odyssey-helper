@@ -1,11 +1,10 @@
-
 import pdfplumber
 from dateutil.parser import parse
 import os
 import sys
 import glob
-from pprint import pprint
 from datetime import date
+import pandas as pd
 
 
 def find_latest_file():
@@ -14,7 +13,9 @@ def find_latest_file():
     Returns:
         string: file path
     """
-    list_of_files = glob.glob('/Users/laithalayassa/Downloads/*') # * means all if need specific format then *.csv
+    list_of_files = glob.glob(
+        '/Users/laithalayassa/Downloads/*'
+    )  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     return latest_file
 
@@ -26,7 +27,7 @@ def is_date(string, fuzzy=False):
     :param string: str, string to check for date
     :param fuzzy: bool, ignore unknown tokens in string if True
     """
-    try: 
+    try:
         parse(string, fuzzy=fuzzy)
         return True
 
@@ -45,13 +46,13 @@ def is_late(item_date, today):
     return item_due >= today
 
 
-def find_late(path_to_pdf = ""):
+def find_late(path_to_pdf=""):
     late_students = {}
     wrong_inputs = ['Available:', 'Checked']
     today = date.today().strftime("%d/%m/%Y")
     today = parse(today)
 
-    if not path_to_pdf:  path_to_pdf = find_latest_file() 
+    if not path_to_pdf: path_to_pdf = find_latest_file()
     with pdfplumber.open(path_to_pdf) as pdf:
         for l, pg in enumerate(pdf.pages):
             page = pdf.pages[l]
@@ -63,7 +64,8 @@ def find_late(path_to_pdf = ""):
                 # Some names are too long and intersect with the date (eg. Alonso03/04/2002)
                 # So I use the last 10 chars which are the the date
                 date_location = row[-4][-10:]
-                if is_date(date_location)  and row[0] not in wrong_inputs: #TODO: Add is late
+                if is_date(date_location) and row[
+                        0] not in wrong_inputs:  #TODO: Add is late
                     due_date = row[-4]
                     item_borrowed = ""
                     student_name = ''
@@ -84,17 +86,24 @@ def find_late(path_to_pdf = ""):
 
                     # print(f'\n The student: {student_name}, id num: {student_id} borrowed {item_borrowed} that is due {due_date}')
                     # print('\n')
-                    late_students[student_id] = [item_borrowed, student_name, due_date]
+                    late_students[student_id] = [
+                        item_borrowed, student_name, due_date
+                    ]
             except:
                 pass
     return late_students
 
 
 # print(find_late())
-def write_emails(pdf_file = None):
-    
+def write_emails(pdf_file=None):
+    df = pd.read_excel('students.xlsx')
+    print(df.head)
     late_students = find_late(pdf_file)
     for student in late_students:
+        try:
+            email_address = df[(df.id == int(student))]["email"].values[0]
+        except:
+            email_address = f"Email not found -- Student's name is {late_students[student][1]}"
         message = """Hello,
 
 You checked out {} on {} and have not yet returned it to the hall office. This item is now overdue.
@@ -107,15 +116,16 @@ If you have any further questions or you feel that you have received this email 
 
 Best, 
 Dupre Office"""
-    
-        message = message.format(late_students[student][0],late_students[student][-1], late_students[student][0])
-        # Adds the email as the last element in dictionary, now it looks like {ID : [ITEM, NAME, Due-Date, Emailmessage]}
-        late_students[student] = late_students[student] + [message]
-        print(student + message)
+
+        message = message.format(late_students[student][0],
+                                 late_students[student][-1],
+                                 late_students[student][0])
+        # Adds the email as the last element in dictionary, now it looks like {ID : [ITEM, NAME, Due-Date, Email Address,Emailmessage]}
+        late_students[student] = late_students[student] + [email_address
+                                                           ] + [message]
+        # print(student + message)
+
     return late_students
-
-
-
 
 
 if __name__ == '__main__':
