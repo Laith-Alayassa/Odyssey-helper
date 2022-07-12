@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="static/style.css">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-light bg-light d-flex justify-content-center">
         <a class="navbar-brand pl-5 mr-auto">
             <img src="/static/logo.svg" width="50" height="50" class="d-inline-block align-top" alt="">
-          </a>
+        </a>
         <span class="navbar-brand mb-0 h1 mr-auto">The Sanity Saver</span>
     </nav>
     <div class="container mt-5 pt-3 d-flex justify-content-center">
@@ -28,42 +29,65 @@
 
             <h5 style="font-size: medium;" class="mt-5">If you want to contribute, <br>
                 please make a pull request!</h5>
-            
-            <h6 class="mt-5" >Made By: <br>
-            Laith Alayassa</h6>
+
+            <h6 class="mt-5">Made By: <br>
+                Laith Alayassa</h6>
 
 
         </div>
         <div class="student-message w-100">
             {% for email in emails %}
+            <h1 class="pl-5">{{ loop.index }}</h1>
             <div class="email-box"></div>
             <div class="text-area d-flex justify-content-center">
-                <textarea class="message-text w-75 p-4">{{emails[email][-1]}}</textarea>
+                <textarea class="message-text w-75 p-4" id="message-area"
+                    data-index="{{loop.index}}">{{emails[email][-1]}}</textarea>
             </div>
             <div class="d-flex justify-content-center mt-3">
-                <textarea id="email" class="email-box w-75 pl-4 pt-1" rows="1">{{ email }}</textarea>
+                <textarea id="email" class="email-box w-75 pl-4 pt-1" rows="1"
+                    data-index="{{loop.index}}">{{ email }}</textarea>
             </div>
             <div class="buttons d-flex  justify-content-center mt-3 mb-5">
-                <button class="w-25 m-0 btn_email mr-1" id="copy-email"> Copy Email</button>
-                <button class="w-25 m-0 btn_message ml-1" id="copy-message"> Copy Message</button>
+                <button class="w-25 m-0 btn_email mr-1" id="copy-email" data-index="{{loop.index}}"> Copy Email</button>
+                <button class="w-25 m-0 btn_message ml-1" id="copy-message" data-index="{{loop.index}}"> Copy
+                    Message</button>
             </div>
             {% endfor %}
         </div>
     </div>
     </div>
     <script>
-        // copy email (id for now)
-        document.querySelector("#copy-email").onclick = function () {
-            document.querySelector("#email").select();
+
+        // copy message
+        var message_btns = document.getElementsByClassName("btn_message");
+
+        var myFunction = function () {
+            var index = this.getAttribute("data-index");
+            console.log(`data index is ${index}`);
+            document.querySelector(`.message-text[data-index="${index}"]`).select();
             document.execCommand('copy');
+        };
+
+        for (var i = 0; i < message_btns.length; i++) {
+            message_btns[i].addEventListener('click', myFunction, false);
         }
 
 
-        // copy text-area
-        document.querySelector("#copy-message").onclick = function () {
-            document.querySelector("textarea").select();
+
+        // Copy email
+        var message_btns = document.getElementsByClassName("btn_email");
+
+        var myFunction = function () {
+            var index = this.getAttribute("data-index");
+            console.log(`data index is ${index}`);
+            document.querySelector(`.email-box[data-index="${index}"]`).select();
             document.execCommand('copy');
+        };
+
+        for (var i = 0; i < message_btns.length; i++) {
+            message_btns[i].addEventListener('click', myFunction, false);
         }
+
     </script>
 </body>
 
