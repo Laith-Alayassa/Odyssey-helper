@@ -13,9 +13,7 @@ def find_latest_file():
     Returns:
         string: file path
     """
-    list_of_files = glob.glob(
-        '/Users/laithalayassa/Downloads/*'
-    )  # * means all if need specific format then *.csv
+    list_of_files = glob.glob('/Users/laithalayassa/Downloads/*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     return latest_file
 
@@ -57,40 +55,40 @@ def find_late(path_to_pdf=""):
         for l, pg in enumerate(pdf.pages):
             page = pdf.pages[l]
             text = page.extract_text()
-        for row in text.split('\n'):
-            row = row.split()
+            for row in text.split('\n'):
+                row = row.split()
 
-            try:
-                # Some names are too long and intersect with the date (eg. Alonso03/04/2002)
-                # So I use the last 10 chars which are the the date
-                date_location = row[-4][-10:]
-                if is_date(date_location) and row[
-                        0] not in wrong_inputs:  #TODO: Add is late
-                    due_date = row[-4]
-                    item_borrowed = ""
-                    student_name = ''
-                    # find student id its index in list
-                    for element in row:
-                        # finds ID based on length and type
-                        if len(element) == 9 and element.isnumeric():
-                            id_index = row.index(element)
-                            student_id = element
+                try:
+                    # Some names are too long and intersect with the date (eg. Alonso03/04/2002)
+                    # So I use the last 10 chars which are the the date
+                    date_location = row[-4][-10:]
+                    if is_date(date_location) and row[
+                            0] not in wrong_inputs:  #TODO: Add is late
+                        due_date = row[-4]
+                        item_borrowed = ""
+                        student_name = ''
+                        # find student id its index in list
+                        for element in row:
+                            # finds ID based on length and type
+                            if len(element) == 9 and element.isnumeric():
+                                id_index = row.index(element)
+                                student_id = element
 
-                    # find item name
-                    for i in range(0, id_index - 1):
-                        item_borrowed += row[i].replace('Checked', '')
+                        # find item name
+                        for i in range(0, id_index - 1):
+                            item_borrowed += row[i].replace('Checked', '')
 
-                    # finds student name
-                    for i in range(id_index + 1, len(row) - 4):
-                        student_name += row[i]
+                        # finds student name
+                        for i in range(id_index + 1, len(row) - 4):
+                            student_name += row[i]
 
-                    # print(f'\n The student: {student_name}, id num: {student_id} borrowed {item_borrowed} that is due {due_date}')
-                    # print('\n')
-                    late_students[student_id] = [
-                        item_borrowed, student_name, due_date
-                    ]
-            except:
-                pass
+                        # print(f'\n The student: {student_name}, id num: {student_id} borrowed {item_borrowed} that is due {due_date}')
+                        # print('\n')
+                        late_students[student_id] = [
+                            item_borrowed, student_name, due_date
+                        ]
+                except:
+                    pass
     return late_students
 
 
